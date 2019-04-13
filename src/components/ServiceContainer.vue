@@ -1,6 +1,6 @@
 <template>
   <div class="service-container">
-    <h3 class="service-subheader">Fant følgende resultater: </h3>
+    <h3 class="service-subheader">Vi fant følgende resultater: </h3>
     <div  class="service-list">
       <div v-for="service in services" v-bind:key="service.id">
         <Service

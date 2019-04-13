@@ -1,26 +1,31 @@
 const express = require('express');
 const twitter = require("./services/twitter.js");
 const instagram = require("./services/instagram.js");
+const facebook = require("./services/facebook.js");
 
 const app = express();
 
 app.get('/api/services', (req, res) => {
   res.json([
     twitter.getUrl(),
-    instagram.getUrl()
+    instagram.getUrl(),
+    facebook.getUrl()
   ])
 });
 
-app.get('/api/services/1', (req, res) => {
-  const data = twitter.getData();
-  console.log(data)
-
-  res.json(data);
-});
-
-app.get('/api/services/2', (req, res) => {
-  const data = instagram.getData();
-
+app.get('/api/services/:id', (req, res) => {
+  let data = {};
+  switch(req.params.id) {
+    case "1":
+      data = twitter.getData();
+      break;
+    case "2":
+      data = instagram.getData();
+      break;
+    case "3":
+      data = facebook.getData();
+      break;
+  }
   res.json(data);
 });
 
