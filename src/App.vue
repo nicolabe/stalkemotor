@@ -1,20 +1,46 @@
 <template>
   <div id="app">
     <h1 class="app-header">Stalkemotor</h1>
-    <Search />
+    <Search
+      v-on:addServices="addServices"
+      v-on:clearServices="clearServices"
+      v-on:setSearch="setSearch"
+    />
+    <ServiceContainer
+      v-if="services.length"
+      v-bind:services="services"
+      v-bind:search="search"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import Search from './components/Search.vue';
+import ServiceContainer from './components/ServiceContainer.vue';
 
 @Component({
   components: {
     Search,
+    ServiceContainer
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  services: Array<Object> = [];
+  search: string = "";
+
+  addServices(services: Array<Object>) {
+    this.services = services;
+  }
+
+  clearServices() {
+    this.services = [];
+  }
+
+  setSearch(search: string) {
+    this.search = search;
+  }
+}
 </script>
 
 <style lang="scss">
